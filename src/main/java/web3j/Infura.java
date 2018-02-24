@@ -5,16 +5,14 @@ import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
 
-import java.io.IOException;
-
 import static org.web3j.tx.ManagedTransaction.GAS_PRICE;
 import static org.web3j.tx.Transfer.GAS_LIMIT;
 
 public class Infura {
     public static void main(String[] args) throws Exception {
         //Connection
-        Web3j web3 = Web3j.build(new HttpService("https://ropsten.infura.io/Z9u0QbMnyXbBNTCX0V6o"));
-        Web3ClientVersion web3ClientVersion = web3.web3ClientVersion().send();
+        Web3j web3j = Web3j.build(new HttpService("https://ropsten.infura.io/Z9u0QbMnyXbBNTCX0V6o"));
+        Web3ClientVersion web3ClientVersion = web3j.web3ClientVersion().send();
         System.out.println("web3ClientVersion:");
         System.out.println(web3ClientVersion.getWeb3ClientVersion());
 
@@ -26,10 +24,18 @@ public class Infura {
         System.out.println(credentials.getAddress());
 
         //Contract
-        Incrementor_sol_Incrementor contract = Incrementor_sol_Incrementor.deploy(
-                web3, credentials,
-                GAS_PRICE, GAS_LIMIT).send();
+//        Incrementor_sol_Incrementor contract = Incrementor_sol_Incrementor.deploy(
+//                web3, credentials,
+//                BigInteger.valueOf(1), BigInteger.valueOf(200000)).send();
 
-        System.out.println();
+        //For Existing SmartContract
+        Incrementor_sol_Incrementor contract = Incrementor_sol_Incrementor.load(
+               "0x0c7f2106b22eecb58cc0cf41adb33f2eb8a4dbf2", web3j, credentials, GAS_PRICE, GAS_LIMIT);
+
+        System.out.println("isValid: " + contract.isValid());
+        System.out.println("Contract Address:  " + contract.getContractAddress());
+
+        //get owner address doesn't work
+        //System.out.println("Contract Owner Address: " + contract.getDeployedAddress("3"));
     }
 }
