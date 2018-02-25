@@ -1,21 +1,17 @@
 package web3j;
 
-import org.web3j.crypto.*;
+import org.web3j.crypto.Credentials;
+import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.RemoteCall;
-import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.ChainId;
 import org.web3j.tx.RawTransactionManager;
 import org.web3j.tx.TransactionManager;
 
-import java.io.Serializable;
 import java.math.BigInteger;
 
-import static org.web3j.ens.Contracts.ROPSTEN;
 import static org.web3j.tx.ManagedTransaction.GAS_PRICE;
-import static org.web3j.tx.Transfer.GAS_LIMIT;
 
 public class Infura {
     public static void main(String[] args) throws Exception {
@@ -46,19 +42,16 @@ public class Infura {
         //get owner address doesn't work
         //System.out.println("Contract Owner Address: " + contract.getDeployedAddress(ROPSTEN));
 
-        //Trying to get value from contract
-        System.out.println("Calling Increment: " + contract.increment(BigInteger.valueOf(5)).send());
-        //RemoteCall<BigInteger> x = contract.getX();
+        //Increment and Get From Contract
+        //System.out.println("Calling Increment: " + contract.increment(BigInteger.valueOf(5)).send());
+        BigInteger x = contract.getX().send();
+        System.out.println("Value: " + x);
+
 
         //Transaction Manager
-//        TransactionManager transactionManager = new RawTransactionManager(
-//                web3j, credentials, ChainId.ROPSTEN);
-
-        BigInteger transactionReceipt = contract.getX().send();
-
-        System.out.println("Value: " + transactionReceipt);
-
-
+        TransactionManager transactionManager = new RawTransactionManager(
+                web3j, credentials, ChainId.ROPSTEN);
+        System.out.println("getFromAddress: " + transactionManager.getFromAddress());
 
     }
 }
