@@ -3,10 +3,13 @@
 <title>DApp</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="scripts/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <style>
 html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 .w3-sidebar {
@@ -33,11 +36,6 @@ footer {
     <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
     <a href="logo.html" class="w3-bar-item w3-button w3-theme-l1">Logo</a>
     <a href="menu.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Menu</a>
-    <!--<a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Values</a>-->
-    <!--<a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">News</a>-->
-    <!--<a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Contact</a>-->
-    <!--<a href="#" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-white">Clients</a>-->
-    <!--<a href="#" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-white">Partners</a>-->
   </div>
 </div>
 
@@ -47,7 +45,7 @@ footer {
     <i class="fa fa-remove"></i>
   </a>
   <h4 class="w3-bar-item"><b>Menu</b></h4>
-  <a class="w3-bar-item w3-button w3-hover-black" href="register.html">Register New Car</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="registerCar.html">Register New Car</a>
   <a class="w3-bar-item w3-button w3-hover-black" href="sell.html">Sell Car</a>
 
 </nav>
@@ -63,24 +61,26 @@ footer {
       <h1 class="w3-text-teal">Register</h1>
       <p>Here you can register a car</p>
     </div>
-
-    <!--<div class="w3-third w3-container">-->
-      <!--<p class="w3-border w3-padding-large w3-padding-32 w3-center">AD</p>-->
-      <!--<p class="w3-border w3-padding-large w3-padding-64 w3-center">AD</p>-->
-    <!--</div>-->
   </div>
 
-  <!-- Pagination -->
-  <!--<div class="w3-center w3-padding-32">-->
-    <!--<div class="w3-bar">-->
-      <!--<a class="w3-button w3-black" href="#">1</a>-->
-      <!--<a class="w3-button w3-hover-black" href="#">2</a>-->
-      <!--<a class="w3-button w3-hover-black" href="#">3</a>-->
-      <!--<a class="w3-button w3-hover-black" href="#">4</a>-->
-      <!--<a class="w3-button w3-hover-black" href="#">5</a>-->
-      <!--<a class="w3-button w3-hover-black" href="#">»</a>-->
-    <!--</div>-->
-  <!--</div>-->
+  <div>
+    <form>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      </div>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+      </div>
+      <button id="registerBtn" type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
 
   <footer id="footer">
     <div class="w3-container w3-theme-l2 w3-padding-32">
@@ -118,7 +118,24 @@ function w3_close() {
     mySidebar.style.display = "none";
     overlayBg.style.display = "none";
 }
+
+$(function () {
+    $('#registerBtn').click(function () {
+        var peerAddress = $('#exampleInputEmail1').val();
+        var jsonObject = {"data": peerAddress};
+
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8080/register',
+            data: JSON.stringify(jsonObject),
+            dataType: "json",
+            contentType: 'application/json',
+            cache: false
+        });
+    });
+});
 </script>
+
 
 </body>
 </html>
