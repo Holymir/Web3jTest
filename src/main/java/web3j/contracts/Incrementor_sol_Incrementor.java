@@ -1,4 +1,4 @@
-package web3j;
+package web3j.contracts;
 
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -26,11 +26,11 @@ import org.web3j.tx.TransactionManager;
 public class Incrementor_sol_Incrementor extends Contract {
     private static final String BINARY = "6060604052341561000f57600080fd5b60c18061001d6000396000f30060606040526004361060485763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416635197c7aa8114604d5780637cf5dab014606f575b600080fd5b3415605757600080fd5b605d6084565b60405190815260200160405180910390f35b3415607957600080fd5b6082600435608a565b005b60005490565b6000805490910190555600a165627a7a723058204410d2198b7bd86cc2a5e0a0ac912d80b293ad9f9736af2f506d0a58368c8d340029";
 
-    protected Incrementor_sol_Incrementor(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
+    public Incrementor_sol_Incrementor(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
         super(BINARY, contractAddress, web3j, credentials, gasPrice, gasLimit);
     }
 
-    protected Incrementor_sol_Incrementor(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
+    public Incrementor_sol_Incrementor(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
         super(BINARY, contractAddress, web3j, transactionManager, gasPrice, gasLimit);
     }
 
