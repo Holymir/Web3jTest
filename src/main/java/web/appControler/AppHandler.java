@@ -13,12 +13,6 @@ public class AppHandler {
         return "registration-done";
     }
 
-//    @PostMapping("/register")
-//    public ResponseEntity reg() {
-//        AppData appData = new AppData();
-//        appData.setData("kur");
-//        return ResponseEntity.ok().build();
-//    }
 //    @GetMapping("/register")
 //    public String openReg() {
 //        System.out.println();

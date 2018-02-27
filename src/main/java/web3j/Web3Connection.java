@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.http.HttpService;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 @Component
@@ -13,7 +12,7 @@ public class Web3Connection {
     private final static Logger LOGGER = Logger.getLogger(Web3Connection.class.getName());
     private Web3j web3j;
 
-    public Web3Connection() throws IOException {
+    public Web3Connection() {
         this.web3j = connectToRopsten();
     }
 
